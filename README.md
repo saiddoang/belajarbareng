@@ -88,6 +88,20 @@ The routing is already locale-aware:
 No `vercel.json` is needed and no secrets are committed — `.env*.local` is
 ignored by git.
 
+### If the deployment answers with a Vercel 404
+
+A body of `The page could not be found` with the header
+`x-vercel-error: NOT_FOUND` comes from Vercel's edge, not from this app: that
+hostname is not attached to a successful deployment. In order:
+
+1. **Deployments** — is the latest one `Ready`, or did the build fail? The log
+   is in that deployment.
+2. **Settings → Git** — connected to this repository and the `main` branch, with
+   **Root Directory** left empty.
+3. `vercel.json` pins `framework: "nextjs"`, so a wrong framework preset can no
+   longer publish an empty deployment. Delete that file only if you replace it
+   with the correct project setting.
+
 ## Not included
 
 Contact form (a mailto link is used instead, so nothing can silently fail),
