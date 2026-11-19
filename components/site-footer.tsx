@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Messages } from "@/lib/i18n/types";
 import { site } from "@/lib/site";
 
@@ -8,7 +9,10 @@ export function SiteFooter({ messages }: { messages: Messages }) {
         <p>
           © {new Date().getFullYear()} {messages.meta.name}. {messages.footer.note}
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
+          <Link href="/speech-delay" className="hover:text-ink">
+            Ruang Wicara
+          </Link>
           <a href={`mailto:${site.email}`} className="hover:text-ink">
             Email
           </a>
