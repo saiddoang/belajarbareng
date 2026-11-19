@@ -11,10 +11,11 @@ Environment: Node 26.13.0 (project declares `engines.node 22.x`; npm prints `EBA
 | Production build | **DONE** | `npm run build` → exit 0, 57 routes prerendered (10 education SSG, 30 activity SSG). |
 | Production server smoke test | **DONE** | `next start -p 3100`; 17 checked URLs (see §3). |
 | Existing portfolio intact | **DONE** | `/` → 307 `/en`; `/en`, `/en/work/<slug>` → 200; footer now links to `/speech-delay`. |
-| Browser interaction testing (click-through) | **NOT VERIFIED** | No interactive browser was driven. See §6. |
-| Visual/mobile review | **NOT VERIFIED** | No screenshots taken; responsive classes are implemented but not visually reviewed. |
+| Browser interaction testing (click-through) | **DONE for core flow** | Cloud browser: profile, 12-question baseline, activity and illustrated demo, session, milestone, goal, reflection, progress, report, JSON export and reset. See §3. |
+| Visual/mobile review | **PARTIAL** | Mobile viewport screenshot of report inspected; horizontal navigation scrolls as designed. Other pages and screen sizes were not visually reviewed. |
 | Audio/video capture on a real device | **NOT VERIFIED** | Headless runner has no audio device or screen reader. |
 | Clinical review of content | **BLOCKED** | No clinician available. Every page states this. |
+| Recheck against original goals file | **NOT VERIFIED** | `FREEBUFF_GOALS_SPEECH_DELAY.md` is absent from this checkout; this audit used the prior requirement trace and implemented files. |
 
 ## 2. Test coverage (34 assertions)
 
@@ -63,6 +64,10 @@ All checks returned the expected status:
 
 Additional checks: `<title>Beranda — Ruang Wicara</title>` present in `/speech-delay` HTML; hashed CSS asset returns 200; `/en` HTML contains `href="/speech-delay"` (footer integration).
 
+## 3a. Interactive browser verification
+
+Using the local production server through the Cloud browser, a test profile was created and all 12 baseline questions answered. One activity session was saved, and the progress chart and report both reflected it after navigation. A milestone observation, one family goal and one weekly reflection persisted. JSON export produced a completed download. Print media hid the controls and showed the report sheet. The first reset check exposed that an empty state was being written back to localStorage; `store.tsx` was fixed. After rebuilding and restarting the production server, `HAPUS` left the storage key absent (`null`). An age of 1 year 11 months was rejected by native form validity and created no profile; 2 years was accepted. A mobile viewport screenshot of the report was inspected.
+
 ## 4. Multimedia asset inventory (truthful)
 
 | Asset type | What actually ships | Honest label |
@@ -80,21 +85,22 @@ Additional checks: `<title>Beranda — Ruang Wicara</title>` present in `/speech
 - Stored: nickname, age in months, home languages, optional caregiver note, practice sessions, milestone observations, goals, reflections, goal reviews, baseline results, three settings. **No** legal name, birth date, raw audio or device identifiers.
 - Export: JSON download, unencrypted — the settings page says so.
 - Import: validated by `parseState` before replacing state; unknown children's records are discarded.
-- Deletion: per-child delete and full reset both call `localStorage.removeItem`, confirmed by typing `HAPUS`.
+- Deletion: per-child delete removes that child's records and persists the remaining state. Full reset calls `localStorage.removeItem` after typing `HAPUS`.
 - No third-party scripts, analytics, ad SDKs or network calls to external services in the module. Fonts are the site's existing `next/font` setup.
 
 ## 6. Known limitations (honest)
 
 1. **`<html lang="en">` on the Indonesian module (NOT VERIFIED / documented).** The portfolio root layout owns a static `lang="en"` because the site is English-only; moving the `<html>` shell would risk the existing pages. `LangSync` sets `document.documentElement.lang = "id"` on mount, so assistive technology sees the correct language after hydration, but the server HTML and any pre-hydration snapshot still say `en`. A permanent fix is to move the `<html>` element into `app/[locale]/layout.tsx`, which is a portfolio-wide refactor and was deliberately not done in this change.
 2. **`localStorage` instead of IndexedDB.** The MD prefers IndexedDB. `localStorage` was chosen because it is synchronous, trivially exportable and adequate for the data volume (text notes only), at the cost of a ~5 MB ceiling and no binary storage. `saveState` returns an explicit error string on quota failure, which the settings page displays. If recordings or images are ever added, this must move to IndexedDB.
-3. **No click-through browser testing.** Tab switching in the activity player, baseline submission, milestone buttons, goal creation, reflection submission, JSON export/import and print output were type-checked and unit-tested at the logic layer, but were **not** exercised in a real browser in this environment. This is the largest untested surface.
-4. **Print/PDF output not visually verified.** `@media print` rules hide nav, header, footer and `.no-print`, and style `.report-sheet`; the PDF is produced by the browser's own print dialog (no PDF library), so pagination and page breaks depend on the browser and were not visually inspected.
+3. **Browser coverage is partial.** The core flow was exercised in a Cloud browser: profile, all 12 baseline answers, activity tabs and illustrated demo, session save, milestone save, goal and reflection save, progress, report, JSON export, and full reset. JSON import, monthly review, real audio playback, keyboard and screen-reader operation, and every one of the 30 activity flows were not individually exercised. They remain unverified in a browser.
+4. **Print/PDF output partially verified.** Browser print-media emulation hid the print button and displayed the report sheet with saved goal data. A PDF file and its pagination were not visually inspected; page breaks still depend on the browser.
 5. **Audio depends on the device.** Firefox/Chrome expose Indonesian voices inconsistently; the component detects absence and tells the user. Nothing here guarantees a specific pronunciation.
 6. **No server, no accounts, no sync.** Data does not follow the user across devices or browsers, and clearing site data deletes it. This is stated in the UI.
 7. **No clinician review.** `MEDICAL_CONTENT_REVIEWED_AT = 2026-11-19` records an editorial re-check against primary sources, not clinical sign-off.
 8. **`requires_clinician_guidance` label unused.** No activity teaches a clinician-led protocol, so no activity carries that label; articulation and complex AAC are routed to a therapist in text instead.
-9. **Node engine mismatch on this runner.** Node 26 was used; `package.json` declares 22.x. Build and tests pass, but Vercel will use a supported runtime.
-10. **Accessibility verified by construction, not by audit.** Semantic landmarks, skip link, breadcrumbs, `aria-current`, `aria-pressed`, `aria-live`, `<table class="sr-only">` data alternatives, focus-visible outline and ≥44 px touch targets are implemented; no automated axe/Lighthouse run was performed.
+9. **Node engine mismatch on this runner.** Node 26 was used; `package.json` declares 22.x. Build and tests pass; the exact Vercel Node 22 runtime was not tested here.
+10. **Accessibility partially verified by construction, not by audit.** Semantic landmarks, skip link, breadcrumbs, `aria-current`, `aria-pressed`, `aria-live`, `<table class="sr-only">` data alternatives, focus-visible outline and ≥44 px touch targets are implemented; no automated axe/Lighthouse run was performed.
+11. **Original requirements file unavailable.** `FREEBUFF_GOALS_SPEECH_DELAY.md` was provided to the previous runner but is not present in this checkout. This run could verify the recorded requirement trace and working implementation, but could not re-read the full source document independently.
 
 ## 7. Requirement traceability
 

@@ -87,7 +87,7 @@ export function SpeechStoreProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (!ready || !loaded.current) return;
+    if (!ready || !loaded.current || state === initialState) return;
     const failure = saveState(state);
     if (failure) setError(failure);
   }, [state, ready]);

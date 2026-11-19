@@ -51,9 +51,9 @@ export function ChildSetup({
       setError("Isi nama panggilan anak (boleh nama samaran).");
       return;
     }
-    if (ageMonths < 18 || ageMonths > 96) {
+    if (!Number.isInteger(ageMonths) || ageMonths < 24 || months < 0 || months > 11) {
       setError(
-        "Modul ini untuk anak usia 18 bulan sampai 8 tahun. Di luar itu, sesuaikan bersama profesional.",
+        "Modul ini untuk anak usia 2 tahun ke atas. Isi tahun dan bulan yang sesuai.",
       );
       return;
     }
@@ -110,8 +110,7 @@ export function ChildSetup({
           <label className="flex items-center gap-2 text-sm">
             <input
               type="number"
-              min={1}
-              max={8}
+              min={2}
               value={years}
               onChange={(event) => setYears(Number(event.target.value))}
               className="w-20 rounded-2xl border border-line px-3 py-2 text-sm"
