@@ -8,8 +8,8 @@ Environment: Node 26.13.0 (project declares `engines.node 22.x`; npm prints `EBA
 | --- | --- | --- |
 | Type safety | **DONE** | `npx tsc --noEmit` → exit 0, no output. |
 | Unit/content tests | **DONE** | `npm test` (Vitest 3.2.7) → 2 files, **34 tests passed**, exit 0. |
-| Production build | **DONE** | `npm run build` → exit 0, 57 routes prerendered (10 education SSG, 30 activity SSG). |
-| Production server smoke test | **DONE** | `next start -p 3100`; 17 checked URLs (see §3). |
+| Production build | **DONE** | `npm run build` → exit 0, 56 routes prerendered (10 education SSG, 30 activity SSG). |
+| Production server smoke test | **DONE** | `next start -p 3100`; 18 checked URLs (see §3). |
 | Existing portfolio intact | **DONE** | `/` → 307 `/en`; `/en`, `/en/work/<slug>` → 200. |
 | Discoverable from the portfolio | **DONE** | Home page has a dedicated `#ruang-wicara` feature card with two CTAs plus a hero button; the sticky header carries a "Ruang Wicara" pill on every portfolio page; the footer links it; the hub links back to the site. Rendered and checked in the live deployment. |
 | Clean production console | **DONE** | The missing `/favicon.ico` (404 on every page) is fixed by `app/icon.svg`, served live and linked in the document head; a reload shows no console errors. |
@@ -60,9 +60,15 @@ All checks returned the expected status:
 200 /speech-delay/resources
 200 /speech-delay/settings
 404 /speech-delay/tidak-ada      (custom module not-found)
-200 /en/work/ledger-dashboard    (existing portfolio page)
+200 /en/work/ruang-wicara       (the only case study)
+404 /en/work/<unknown-slug>     (dynamicParams = false; no stub studies are routable)
 307 / -> /en                     (existing redirect preserved)
 ```
+
+Re-checked on the current build (production server, port 3000): `/en` 200,
+`/en/work/ruang-wicara` 200, an unknown case-study slug 404s (stub studies are
+removed, and `dynamicParams = false` keeps them unroutable), `/speech-delay` 200,
+`/` 307 → `/en`.
 
 Additional checks: `<title>Beranda — Ruang Wicara</title>` present in `/speech-delay` HTML; hashed CSS asset returns 200; `/en` HTML contains `id="ruang-wicara"`, three "Ruang Wicara" occurrences and the header pill link; `/speech-delay` HTML contains `lang="id"` on the hub container.
 
@@ -142,6 +148,6 @@ Earlier, using the local production server through the Cloud browser, a test pro
 npm ci
 npm run typecheck   # exit 0
 npm test            # 34 tests
-npm run build       # 57 routes
+npm run build       # 56 routes
 npx next start -p 3100   # then curl the routes in §3
 ```

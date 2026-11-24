@@ -42,8 +42,10 @@ export type Messages = {
   contact: {
     label: string;
     heading: string;
-    body: string;
-    cta: string;
+    bodyEmail: string;
+    bodyGithub: string;
+    ctaEmail: string;
+    ctaGithub: string;
   };
   footer: {
     note: string;
@@ -68,9 +70,5 @@ export type Messages = {
     body: string;
     home: string;
     work: string;
-  };
-  dev: {
-    home: string;
-    caseStudy: string;
   };
 };

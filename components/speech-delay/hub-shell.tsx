@@ -80,7 +80,7 @@ export function HubShell({ children }: { children: ReactNode }) {
 
         <nav
           aria-label="Navigasi modul (layar kecil)"
-          className="flex gap-1 overflow-x-auto border-t border-line px-4 py-2 text-sm md:hidden"
+          className="flex flex-wrap gap-1 border-t border-line px-4 py-2 text-sm md:hidden"
         >
           {navigation.map((item) => (
             <Link

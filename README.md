@@ -1,8 +1,10 @@
-# Portfolio
+# Belajar Bareng
 
-Personal portfolio for a senior software engineer: one home page, three case
-studies, English only for the first launch. Next.js 16 (App Router), Tailwind
-CSS 4, TypeScript. Built to deploy on Vercel with no configuration.
+Site for **Belajar Bareng**, an independent studio building free, plain-language
+learning tools for Indonesian families. One home page, a case study for the
+first release (Ruang Wicara, the speech and language module under
+`/speech-delay`), English UI, Indonesian product. Next.js 16 (App Router),
+Tailwind CSS 4, TypeScript. Built to deploy on Vercel with no configuration.
 
 ## Run
 
@@ -13,37 +15,41 @@ npm run build    # production build
 npm run start    # serve the production build
 ```
 
-## What is still placeholder
+## Branding and content
 
-Everything below is sample content, clearly marked in the UI by the banner from
-`components/dev-notice.tsx`. Nothing here should be published as-is.
+Everything on the site is real copy — no draft banner, no stubbed sections. Where
+to change things:
 
 | What | Where |
 | --- | --- |
 | Email, LinkedIn, GitHub, CV link | `lib/site.ts` |
-| Name, headline, intro, approach, contact and 404 copy | `lib/i18n/messages/en.ts` |
-| The three case studies (story, metrics, links) | `content/projects.ts` |
+| Name, headline, intro, approach, sources, contact and 404 copy | `lib/i18n/messages/en.ts` |
+| The Ruang Wicara case study (story, numbers, links) | `content/projects.ts` |
 
-Checklist before launch:
+Rules the content follows, so keep them if you edit:
 
-1. Replace every `[bracketed]` line. Set `placeholder: false` on each project in
-   `content/projects.ts` once it is real.
-2. Drop your CV at `public/cv.pdf`, then set `cvUrl: "/cv.pdf"` in `lib/site.ts`.
-   While it is `null` no download button is rendered, so there is no dead link.
-3. Never publish a metric you cannot explain in an interview.
-4. Delete the `<DevNotice>` lines in `app/[locale]/page.tsx` and
-   `app/[locale]/work/[slug]/page.tsx`.
+1. Every number in `content/projects.ts` is countable from this repository
+   (30 activities, 10 guides, 0 accounts). Do not add a metric you cannot
+   explain, and say when something was not measured.
+2. Contact links are nullable on purpose: a `null` entry in `lib/site.ts` is not
+   rendered, so the site never shows a dead `mailto:` or profile link. The
+   contact section and hero pick their wording from what exists (email, else
+   GitHub), so labels always match their destination. Set a real value and both
+   the link and its copy return. Drop a CV at `public/cv.pdf`, then set
+   `cvUrl: "/cv.pdf"`.
+3. The app claims nothing clinical. Clinician review of the speech content still
+   has not happened; `SPEECH_DELAY_QA_REPORT.md` tracks that and every other gap.
 
 ## Structure
 
 ```
 app/layout.tsx                 html shell + fonts
 app/[locale]/layout.tsx        metadata, header, footer
-app/[locale]/page.tsx          home: hero, work, approach, contact
+app/[locale]/page.tsx          home: hero, Ruang Wicara card, work, approach, contact
 app/[locale]/work/[slug]/      case study template
 app/[locale]/not-found.tsx     404 inside the site shell
 app/not-found.tsx              404 outside the locale routes
-components/                    header, footer, reveal, dev notice, locale switcher
+components/                    header, footer, reveal, locale switcher
 content/projects.ts            typed project data
 lib/i18n/                      locale config + English messages
 lib/site.ts                    contact links
@@ -104,5 +110,6 @@ hostname is not attached to a successful deployment. In order:
 
 ## Not included
 
-Contact form (a mailto link is used instead, so nothing can silently fail),
-analytics, CMS, auth, dark mode.
+Contact form (the contact section renders a mailto link or a GitHub link,
+whichever exists in `lib/site.ts`, so nothing can silently fail), analytics,
+CMS, auth, dark mode.

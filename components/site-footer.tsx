@@ -13,25 +13,31 @@ export function SiteFooter({ messages }: { messages: Messages }) {
           <Link href="/speech-delay" className="hover:text-ink">
             Ruang Wicara
           </Link>
-          <a href={`mailto:${site.email}`} className="hover:text-ink">
-            Email
-          </a>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-ink"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={site.github}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-ink"
-          >
-            GitHub
-          </a>
+          {site.email ? (
+            <a href={`mailto:${site.email}`} className="hover:text-ink">
+              Email
+            </a>
+          ) : null}
+          {site.linkedin ? (
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-ink"
+            >
+              LinkedIn
+            </a>
+          ) : null}
+          {site.github ? (
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-ink"
+            >
+              GitHub
+            </a>
+          ) : null}
         </div>
       </div>
     </footer>

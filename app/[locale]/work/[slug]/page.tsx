@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { DevNotice } from "@/components/dev-notice";
 import { getNextProject, getProject, projects } from "@/content/projects";
 import { getMessages, isLocale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n/config";
@@ -55,10 +54,6 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      {project.placeholder ? (
-        <DevNotice>{messages.dev.caseStudy}</DevNotice>
-      ) : null}
-
       <article className="mx-auto max-w-5xl px-6 pb-24 pt-12">
         <Link
           href={`/${locale}#work`}
@@ -78,7 +73,7 @@ export default async function CaseStudyPage({
           <dl className="mt-10 grid gap-6 border-y border-line py-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:grid-cols-3">
             <div>
               <dt>{messages.caseStudy.role}</dt>
-              <dd className="mt-2 normal-case tracking-normal text-ink">
+              <dd className="mt-2 text-balance normal-case tracking-normal text-ink">
                 {project.role}
               </dd>
             </div>
@@ -163,20 +158,35 @@ export default async function CaseStudyPage({
               {messages.caseStudy.links}
             </h2>
             <ul className="flex flex-wrap gap-3">
-              {project.links.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-line px-4 py-2 text-sm transition-colors hover:border-ink"
-                  >
-                    {link.kind === "live"
-                      ? messages.caseStudy.live
-                      : messages.caseStudy.repository}
-                  </a>
-                </li>
-              ))}
+              {project.links.map((link) => {
+                const label =
+                  link.kind === "live"
+                    ? messages.caseStudy.live
+                    : messages.caseStudy.repository;
+                const className =
+                  "rounded-full border border-line px-4 py-2 text-sm transition-colors hover:border-ink";
+                const internal = link.href.startsWith("/");
+
+                // In-site links stay in the tab; only outside URLs open a new one.
+                return (
+                  <li key={link.href}>
+                    {internal ? (
+                      <Link href={link.href} className={className}>
+                        {label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={className}
+                      >
+                        {label}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ) : null}

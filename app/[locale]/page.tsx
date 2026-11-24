@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { DevNotice } from "@/components/dev-notice";
 import { Reveal } from "@/components/reveal";
 import { projects } from "@/content/projects";
 import { getMessages, isLocale } from "@/lib/i18n";
@@ -15,12 +14,10 @@ export default async function HomePage({
   if (!isLocale(locale)) notFound();
 
   const messages = getMessages(locale);
-  const featured = projects.slice(0, 3);
+  const featured = projects;
 
   return (
     <>
-      <DevNotice>{messages.dev.home}</DevNotice>
-
       <section className="mx-auto max-w-5xl px-6 pb-24 pt-16 sm:pt-24">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
@@ -45,12 +42,14 @@ export default async function HomePage({
             >
               {messages.hub.nav} →
             </Link>
-            <a
-              href={`mailto:${site.email}`}
-              className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
-            >
-              {messages.hero.ctaSecondary}
-            </a>
+            {site.email ? (
+              <a
+                href={`mailto:${site.email}`}
+                className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
+              >
+                {messages.hero.ctaSecondary}
+              </a>
+            ) : null}
             {site.cvUrl ? (
               <a
                 href={site.cvUrl}
@@ -133,7 +132,7 @@ export default async function HomePage({
               <li key={project.slug} className="border-b border-line last:border-b-0">
                 <Link
                   href={`/${locale}/work/${project.slug}`}
-                  className="group grid gap-4 py-8 sm:grid-cols-[3rem_1fr_9rem] sm:items-baseline"
+                  className="group grid gap-4 py-8 sm:grid-cols-[3rem_1fr_13rem] sm:items-baseline"
                 >
                   <span className="font-mono text-xs text-muted">
                     {String(index + 1).padStart(2, "0")}
@@ -149,9 +148,9 @@ export default async function HomePage({
                       {project.tags.join(" · ")}
                     </p>
                   </div>
-                  <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:text-right">
+                  <div className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted sm:text-right">
                     <p>{project.year}</p>
-                    <p className="mt-1 normal-case tracking-normal">
+                    <p className="mt-1 text-balance normal-case tracking-normal">
                       {project.role}
                     </p>
                   </div>
@@ -201,31 +200,44 @@ export default async function HomePage({
             {messages.contact.heading}
           </p>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
-            {messages.contact.body}
+            {site.email
+              ? messages.contact.bodyEmail
+              : messages.contact.bodyGithub}
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href={`mailto:${site.email}`}
-              className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
-            >
-              {messages.contact.cta}
-            </a>
-            <a
-              href={site.linkedin}
-              target="_blank"
-              rel="noreferrer"
+            {site.email ? (
+              <a
+                href={`mailto:${site.email}`}
+                className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
+              >
+                {messages.contact.ctaEmail}
+              </a>
+            ) : (
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
+              >
+                {messages.contact.ctaGithub}
+              </a>
+            )}
+            {site.linkedin ? (
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
+              >
+                LinkedIn
+              </a>
+            ) : null}
+            <Link
+              href="/speech-delay"
               className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
             >
-              LinkedIn
-            </a>
-            <a
-              href={site.github}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
-            >
-              GitHub
-            </a>
+              {messages.hub.nav}
+            </Link>
           </div>
         </div>
       </section>

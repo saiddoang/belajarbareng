@@ -2,10 +2,10 @@ import type { Messages } from "../types";
 
 export const en = {
   meta: {
-    name: "Your Name",
-    title: "Your Name — Senior Software Engineer",
+    name: "Belajar Bareng",
+    title: "Belajar Bareng — free learning tools for Indonesian families",
     description:
-      "Senior software engineer. Case studies with measured outcomes. Available for full-time roles and freelance work.",
+      "An independent studio building free, plain-language learning tools for parents and children in Indonesia. First release: Ruang Wicara, a home practice companion for speech and language development.",
   },
   nav: {
     work: "Work",
@@ -13,12 +13,12 @@ export const en = {
     contact: "Contact",
   },
   hero: {
-    status: "Open to full-time roles and freelance work",
-    headline: "I build [product type] that [measurable outcome].",
+    status: "Independent studio · Free tools · Bahasa Indonesia",
+    headline: "Learning tools a parent can actually use at nine at night.",
     intro:
-      "One or two sentences: what you build, who you build it for, and the result you produce. Replace this paragraph in lib/i18n/messages/en.ts — a recruiter should understand your value in ten seconds.",
-    ctaPrimary: "Read the case studies",
-    ctaSecondary: "Email me",
+      "I build plain-language tools for Indonesian families, starting with speech and language development. No accounts, no uploads, no tracking: every claim is cited, and it all works on the phone already in your pocket.",
+    ctaPrimary: "See the work",
+    ctaSecondary: "Say hello",
   },
   hub: {
     nav: "Ruang Wicara",
@@ -45,39 +45,43 @@ export const en = {
     ],
   },
   work: {
-    label: "Selected work",
-    lead: "Three projects, chosen for outcomes rather than volume.",
+    label: "Work",
+    lead: "One product, documented properly: what it does, what it refuses to do, and where the content comes from.",
   },
   about: {
-    label: "How I work",
-    lead: "Replace these three lines with the way you actually operate — the point is to show judgement, not tool names.",
+    label: "How I build",
+    lead: "Three rules decide what ships and what gets cut.",
     items: [
       {
-        title: "Start from the number",
-        body: "[The metric you are accountable for: load time, conversion, uptime, support load. Say how you find it and how you keep it honest.]",
+        title: "Write for the person, not the persona",
+        body: "The reader is a tired parent on a mid-range Android phone at nine at night. If a sentence needs a second pass, it gets rewritten, not explained.",
       },
       {
-        title: "Ship in slices",
-        body: "[How you cut a large problem into releases that reach users early, and how you decide what goes first.]",
+        title: "Cite the source or drop the claim",
+        body: "Every milestone, activity and referral sign links back to CDC, AAP, ASHA or NIDCD guidance. Where the evidence is thin, the interface says so instead of guessing.",
       },
       {
-        title: "Leave it maintainable",
-        body: "[What you hand over: tests where they pay off, docs for the next person, and the trade-offs you knowingly accepted.]",
+        title: "Earn trust by not requiring it",
+        body: "No account, no upload, no analytics on a child's data. Progress lives in the browser's local storage, and the summary prints so it survives the device.",
       },
     ],
   },
   proof: {
-    label: "Trusted by",
-    body: "[Company names, client names or a testimonial go here — only ones you have permission to publish.]",
+    label: "Sources behind the content",
+    body: "Ruang Wicara's milestones and referral signs come from CDC milestone checklists, AAP HealthyChildren, ASHA and NIDCD, and the practice activities are mapped to the same sources. The tool never claims to diagnose a child, and it never replaces a clinician.",
   },
   contact: {
     label: "Contact",
-    heading: "Tell me what you are building.",
-    body: "The fastest way to reach me is email. I reply to every serious enquiry within two working days.",
-    cta: "Send an email",
+    heading: "Tell me what you are building — or what is missing.",
+    bodyEmail:
+      "Email reaches me fastest. Questions about Ruang Wicara, corrections to the content and work enquiries all land in the same inbox.",
+    bodyGithub:
+      "GitHub is the way to reach me today: open an issue with a question, a bug or a correction, and I will answer there. No contact form and no newsletter.",
+    ctaEmail: "Send an email",
+    ctaGithub: "Open an issue on GitHub",
   },
   footer: {
-    note: "Built with Next.js and Tailwind CSS.",
+    note: "Free tools, no tracking, no accounts.",
   },
   caseStudy: {
     back: "All work",
@@ -87,7 +91,7 @@ export const en = {
     outcome: "Outcome",
     stack: "Stack",
     year: "Year",
-    metrics: "Results",
+    metrics: "What shipped",
     links: "Links",
     next: "Next project",
     repository: "Repository",
@@ -98,11 +102,6 @@ export const en = {
     title: "This page does not exist.",
     body: "The link is broken, or the project is not here. Everything worth reading is one click away.",
     home: "Back to home",
-    work: "See the case studies",
-  },
-  dev: {
-    home: "Placeholder content. Copy lives in lib/i18n/messages/en.ts, projects in content/projects.ts, and links in lib/site.ts. Delete this notice (components/dev-notice.tsx) before publishing.",
-    caseStudy:
-      "Placeholder case study. Replace the story, the metrics and the links in content/projects.ts with your own project, then remove this notice.",
+    work: "See the work",
   },
 } satisfies Messages;

@@ -1,11 +1,9 @@
 /**
- * PLACEHOLDER CASE STUDIES.
+ * Case studies for Belajar Bareng.
  *
- * These three projects are written to show the format, not to ship. Replace
- * every field with a real project: the problem, your actual role, the steps you
- * took, and results you can defend in an interview. Never publish a number you
- * cannot explain. Set `placeholder: false` once a project is real — the site
- * stops marking it as sample content.
+ * Only work that exists is listed here. Every number is countable from the
+ * repository or the running app; if a result was not measured, the story says
+ * so instead of inventing a percentage.
  */
 
 export type Project = {
@@ -23,122 +21,45 @@ export type Project = {
     outcome: string;
   };
   links?: { href: string; kind: "live" | "repository" }[];
-  placeholder: boolean;
 };
 
 export const projects: Project[] = [
   {
-    slug: "ledger-dashboard",
-    title: "Ledger: cutting dashboard load from 6.2s to 1.4s",
-    year: "2025",
-    role: "Lead frontend engineer",
+    slug: "ruang-wicara",
+    title: "Ruang Wicara: a speech practice companion for parents",
+    year: "2026",
+    role: "Design, engineering and content sourcing — solo",
     summary:
-      "Rebuilt a slow reporting dashboard around server components and cached queries, so account managers stopped exporting to spreadsheets.",
-    tags: ["Next.js", "TypeScript", "Postgres"],
+      "A free Bahasa Indonesia web app that turns speech and language milestones into 30 play-based activities, keeps observation notes on the device, and prints a summary to bring to a paediatrician or speech therapist.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     metrics: [
-      { value: "−78%", label: "p95 load time" },
-      { value: "+31%", label: "weekly active accounts" },
-      { value: "3 → 11", label: "teams onboarded" },
+      { value: "30", label: "play-based activities" },
+      { value: "10", label: "plain-language guides" },
+      { value: "0", label: "accounts or uploads" },
     ],
     story: {
       problem:
-        "[Who used this dashboard, what decision they made with it, and why the old version failed them — the 6.2s figure itself, the support tickets, the workarounds.]",
+        "Speech and language worries arrive early and quietly: a two-year-old with a handful of words, a three-year-old whose sentences stopped growing. Indonesian parents usually meet two options — clinical material written for professionals, or English apps that want an account and a child's data before they show anything useful. Between the first worry and the first appointment there can be months, and nothing fills them.",
       myRole:
-        "[What you owned: the technical plan, the migration, the team split, the stakeholder conversations. Be precise about what you did alone and what you led.]",
+        "Solo: information architecture, the React and TypeScript implementation, the Indonesian content structure, the sourcing of every claim, and the test suite. Content is mapped to public guidance from CDC, AAP HealthyChildren, ASHA and NIDCD, but no clinician has reviewed the module — that gap is written into the app rather than hidden.",
       approach: [
         {
-          title: "[Step one]",
-          body: "[The first thing you changed and why it was safe to change first.]",
+          title: "Match the activity to the child, not the calendar",
+          body: "A baseline check sorts activities by the communication level a parent can actually observe. A three-year-old who is not yet joining two words gets turn-taking and choice routines, not sentence drills chosen by age alone.",
         },
         {
-          title: "[Step two]",
-          body: "[The trade-off you accepted, and the alternative you rejected.]",
+          title: "Keep practice and observation in two records",
+          body: "Sessions log what was practised; observations log what changed. Mixing them lets hope look like evidence, which is the one thing an appointment cannot afford.",
         },
         {
-          title: "[Step three]",
-          body: "[How you proved the result and stopped it regressing.]",
+          title: "Make the offline path the default",
+          body: "State sits in localStorage behind a versioned schema with a parser that discards malformed data, and export is a print stylesheet. Nothing leaves the browser, so there is nothing to leak and no account to maintain.",
         },
       ],
       outcome:
-        "[What is true now that was not before, in the same numbers as the metrics above. Mention what you would do differently.]",
+        "Ships as a static Next.js module with 30 sourced activities, CDC milestones for ages 24–60 months, red-flag referral signs, progress charts and a printable summary. Two limits are stated in the app and in its QA report: the content has not been reviewed by a clinician, and the module collects no analytics, so adoption is unknown by design.",
     },
-    links: [{ href: "[your demo URL]", kind: "live" }],
-    placeholder: true,
-  },
-  {
-    slug: "kirim-api",
-    title: "Kirim: one API in front of three couriers",
-    year: "2024",
-    role: "Backend engineer, team of four",
-    summary:
-      "Unified three courier integrations behind one contract, so merchants shipped from a single endpoint instead of three.",
-    tags: ["Node.js", "Fastify", "Redis"],
-    metrics: [
-      { value: "1.2M", label: "requests / month" },
-      { value: "0.4%", label: "failed deliveries" },
-      { value: "−60%", label: "support tickets" },
-    ],
-    story: {
-      problem:
-        "[The integration mess before: duplicated code per courier, what broke, and the business cost of each failure.]",
-      myRole:
-        "[Your slice of the work — the contract design, the retry layer, the on-call rotation, the review load you carried.]",
-      approach: [
-        {
-          title: "[Step one]",
-          body: "[How you mapped the three APIs into one contract without breaking the merchants already live.]",
-        },
-        {
-          title: "[Step two]",
-          body: "[How you handled failure: retries, idempotency, the alert that actually mattered.]",
-        },
-        {
-          title: "[Step three]",
-          body: "[How you rolled it out and how you knew it was working.]",
-        },
-      ],
-      outcome:
-        "[Current volume and reliability, plus the thing that stopped happening. Keep it to what you can source.]",
-    },
-    links: [{ href: "[your repository URL]", kind: "repository" }],
-    placeholder: true,
-  },
-  {
-    slug: "ruang-belajar",
-    title: "Ruang: a course player students actually finish",
-    year: "2023",
-    role: "Full-stack, solo",
-    summary:
-      "An independent learning platform where the player resumes exactly where a student stopped, built and shipped alone.",
-    tags: ["React", "tRPC", "SQLite"],
-    metrics: [
-      { value: "+24pp", label: "course completion" },
-      { value: "4.8/5", label: "learner rating" },
-      { value: "2 weeks", label: "to first release" },
-    ],
-    story: {
-      problem:
-        "[Who the learners were, why they abandoned courses, and the single behaviour you decided to fix.]",
-      myRole:
-        "[Solo full-stack: design, schema, player, deploy, and the first ten users you talked to.]",
-      approach: [
-        {
-          title: "[Step one]",
-          body: "[The smallest release you could put in front of a real learner.]",
-        },
-        {
-          title: "[Step two]",
-          body: "[The part you deliberately left out, and why that was the right call at the time.]",
-        },
-        {
-          title: "[Step three]",
-          body: "[How you measured completion and what you learned from the drop-off points.]",
-        },
-      ],
-      outcome:
-        "[The result today, honestly scoped — including how many active learners, so the percentage has context.]",
-    },
-    placeholder: true,
+    links: [{ href: "/speech-delay", kind: "live" }],
   },
 ];
 
@@ -147,6 +68,9 @@ export function getProject(slug: string): Project | undefined {
 }
 
 export function getNextProject(slug: string): Project | undefined {
+  // With a single case study, "next" would link back to itself, so it is not
+  // rendered at all until a second project exists.
+  if (projects.length < 2) return undefined;
   const index = projects.findIndex((project) => project.slug === slug);
   if (index === -1) return undefined;
   return projects[(index + 1) % projects.length];

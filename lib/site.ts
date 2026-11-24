@@ -29,11 +29,15 @@ export const siteUrl =
   toOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL) ??
   toOrigin(process.env.VERCEL_URL);
 
-// Everything a visitor can click out to. Replace the placeholder values.
+/**
+ * Everything a visitor can click out to. A null entry is simply not rendered,
+ * so the site never ships a dead link. Set `email` (or `linkedin`) to a real
+ * value and its button reappears everywhere.
+ */
 export const site = {
-  email: "you@example.com",
-  linkedin: "https://www.linkedin.com/in/your-handle",
-  github: "https://github.com/your-handle",
+  email: null as string | null,
+  linkedin: null as string | null,
+  github: "https://github.com/saiddoang",
 
   // Drop your CV at public/cv.pdf and set this to "/cv.pdf".
   // While it is null the download button is not rendered (no dead links).
