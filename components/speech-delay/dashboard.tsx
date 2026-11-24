@@ -111,6 +111,48 @@ export function Dashboard() {
           </Link>
         </div>
 
+        <ol className="mt-8 grid gap-3 rounded-3xl border border-line bg-white p-5 sm:grid-cols-3">
+          {[
+            {
+              step: "1",
+              title: "Buat profil anak",
+              body: "Nama panggilan dan usia. Cukup 30 detik, data tinggal di perangkat ini.",
+              href: "/speech-delay/onboarding",
+            },
+            {
+              step: "2",
+              title: "Isi cek kemampuan awal",
+              body: "12 pertanyaan singkat untuk memilih titik mulai latihan.",
+              href: "/speech-delay/onboarding",
+            },
+            {
+              step: "3",
+              title: "Coba satu latihan",
+              body: "5 menit bermain, lalu catat apa yang terlihat.",
+              href: "/speech-delay/exercises",
+            },
+          ].map((item) => (
+            <li key={item.step}>
+              <Link
+                href={item.href}
+                className="flex h-full gap-3 rounded-2xl p-2 transition hover:bg-paper"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-semibold text-accent">
+                  {item.step}
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-ink">
+                    {item.title}
+                  </span>
+                  <span className="mt-1 block text-xs leading-relaxed text-muted">
+                    {item.body}
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {

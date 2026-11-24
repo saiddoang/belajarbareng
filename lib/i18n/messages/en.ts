@@ -20,6 +20,30 @@ export const en = {
     ctaPrimary: "Read the case studies",
     ctaSecondary: "Email me",
   },
+  hub: {
+    nav: "Ruang Wicara",
+    label: "Free tool · Bahasa Indonesia",
+    title:
+      "Ruang Wicara — a home practice companion for speech and language development",
+    body: "Built for parents of children aged 2 and up: 30 play-based activities, CDC milestones for ages 2–5, observation notes and a printable summary to bring to a doctor or speech therapist. Everything runs in your browser — no account, no upload.",
+    cta: "Open Ruang Wicara",
+    secondary: "See the education library",
+    meta: "Non-diagnostic · No account · Data stays on your device",
+    points: [
+      {
+        title: "Start from the child's ability",
+        body: "Activities are matched to the communication level you observe, not to age alone.",
+      },
+      {
+        title: "Record what you actually saw",
+        body: "Short check-ins keep practice and observed change in two separate records.",
+      },
+      {
+        title: "Walk in prepared",
+        body: "Milestone checks and referral signs help you ask better questions at an appointment.",
+      },
+    ],
+  },
   work: {
     label: "Selected work",
     lead: "Three projects, chosen for outcomes rather than volume.",

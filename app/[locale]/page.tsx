@@ -39,6 +39,12 @@ export default async function HomePage({
             >
               {messages.hero.ctaPrimary}
             </a>
+            <Link
+              href="/speech-delay"
+              className="rounded-full border border-accent/40 bg-accent/5 px-5 py-3 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10"
+            >
+              {messages.hub.nav} →
+            </Link>
             <a
               href={`mailto:${site.email}`}
               className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
@@ -56,6 +62,61 @@ export default async function HomePage({
             ) : null}
           </div>
         </Reveal>
+      </section>
+
+      <section id="ruang-wicara" className="border-t border-line">
+        <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+          <Reveal>
+            <div className="overflow-hidden rounded-3xl bg-accent px-6 py-8 text-paper sm:px-10 sm:py-10">
+              <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
+                    {messages.hub.label}
+                  </p>
+                  <h2 className="mt-4 text-[clamp(1.7rem,3.4vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance">
+                    {messages.hub.title}
+                  </h2>
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-paper/80">
+                    {messages.hub.body}
+                  </p>
+                  <div className="mt-7 flex flex-wrap items-center gap-3">
+                    <Link
+                      href="/speech-delay"
+                      className="rounded-full bg-paper px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-white"
+                    >
+                      {messages.hub.cta}
+                    </Link>
+                    <Link
+                      href="/speech-delay/education"
+                      className="rounded-full border border-paper/40 px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-paper/10"
+                    >
+                      {messages.hub.secondary}
+                    </Link>
+                  </div>
+                  <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/75">
+                    {messages.hub.meta}
+                  </p>
+                </div>
+
+                <ul className="grid gap-3 self-center sm:grid-cols-2 lg:grid-cols-1">
+                  {messages.hub.points.map((point) => (
+                    <li
+                      key={point.title}
+                      className="rounded-2xl border border-paper/15 bg-paper/5 p-4"
+                    >
+                      <p className="text-sm font-medium text-paper">
+                        {point.title}
+                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-paper/70">
+                        {point.body}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       <section id="work" className="border-t border-line">

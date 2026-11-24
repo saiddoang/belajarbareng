@@ -24,7 +24,7 @@ export function HubShell({ children }: { children: ReactNode }) {
       : pathname.startsWith(href);
 
   return (
-    <div className="flex min-h-dvh flex-col bg-paper">
+    <div lang="id" className="flex min-h-dvh flex-col bg-paper">
       <LangSync />
 
       <a
@@ -111,6 +111,12 @@ export function HubShell({ children }: { children: ReactNode }) {
               Modul pendamping orang tua untuk latihan stimulasi komunikasi di
               rumah. Bukan layanan diagnosis atau terapi.
             </p>
+            <Link
+              href="/"
+              className="mt-3 inline-block text-xs underline decoration-line underline-offset-4 hover:text-ink"
+            >
+              ← Kembali ke situs utama
+            </Link>
           </div>
           <div className="text-xs leading-relaxed">
             <p className="font-medium text-ink">Bila ada kekhawatiran</p>

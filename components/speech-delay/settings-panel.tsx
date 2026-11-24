@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRef, useState } from "react";
 import { ExportButton } from "./export-button";
 import { ChildSetup } from "./child-setup";
@@ -30,6 +29,7 @@ export function SettingsPanel() {
   const [message, setMessage] = useState<string | null>(null);
   const [confirmText, setConfirmText] = useState("");
   const [showEdit, setShowEdit] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
 
   if (!ready) return <p className="text-sm text-muted">Memuat…</p>;
 
@@ -122,19 +122,41 @@ export function SettingsPanel() {
         )}
 
         <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/speech-delay/onboarding" className={buttonSecondary}>
-            Tambah profil
-          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setShowCreate((value) => !value);
+              setShowEdit(false);
+            }}
+            className={buttonSecondary}
+          >
+            {showCreate ? "Tutup form profil baru" : "Tambah profil"}
+          </button>
           {activeChild ? (
             <button
               type="button"
-              onClick={() => setShowEdit((value) => !value)}
+              onClick={() => {
+                setShowEdit((value) => !value);
+                setShowCreate(false);
+              }}
               className={buttonSecondary}
             >
               {showEdit ? "Tutup edit" : "Edit profil aktif"}
             </button>
           ) : null}
         </div>
+
+        {showCreate ? (
+          <div className="mt-5 border-t border-line pt-5">
+            <ChildSetup
+              mode="create"
+              onDone={() => {
+                setShowCreate(false);
+                setMessage("Profil baru ditambahkan dan dijadikan profil aktif.");
+              }}
+            />
+          </div>
+        ) : null}
 
         {showEdit && activeChild ? (
           <div className="mt-5 border-t border-line pt-5">

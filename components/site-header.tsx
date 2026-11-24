@@ -12,35 +12,44 @@ export function SiteHeader({
 }) {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/85 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-3.5 sm:py-4">
         <Link
           href={`/${locale}`}
-          className="text-sm font-medium tracking-tight transition-colors hover:text-accent"
+          className="shrink-0 text-sm font-medium tracking-tight transition-colors hover:text-accent"
         >
           {messages.meta.name}
         </Link>
 
-        <nav className="flex items-center gap-5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <Link
-            href={`/${locale}#work`}
-            className="transition-colors hover:text-ink"
+            href="/speech-delay"
+            className="shrink-0 whitespace-nowrap rounded-full bg-accent px-3.5 py-1.5 text-xs font-medium text-paper transition-colors hover:opacity-90"
           >
-            {messages.nav.work}
+            {messages.hub.nav}
           </Link>
-          <Link
-            href={`/${locale}#about`}
-            className="transition-colors hover:text-ink"
-          >
-            {messages.nav.about}
-          </Link>
-          <Link
-            href={`/${locale}#contact`}
-            className="transition-colors hover:text-ink"
-          >
-            {messages.nav.contact}
-          </Link>
-          <LocaleSwitcher locale={locale} />
-        </nav>
+
+          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:gap-x-5 sm:text-xs">
+            <Link
+              href={`/${locale}#work`}
+              className="transition-colors hover:text-ink"
+            >
+              {messages.nav.work}
+            </Link>
+            <Link
+              href={`/${locale}#about`}
+              className="transition-colors hover:text-ink"
+            >
+              {messages.nav.about}
+            </Link>
+            <Link
+              href={`/${locale}#contact`}
+              className="transition-colors hover:text-ink"
+            >
+              {messages.nav.contact}
+            </Link>
+            <LocaleSwitcher locale={locale} />
+          </nav>
+        </div>
       </div>
     </header>
   );

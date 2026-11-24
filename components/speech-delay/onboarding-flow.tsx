@@ -29,7 +29,7 @@ export function OnboardingFlow() {
           </div>
           <div>
             <SectionTitle
-              eyebrow="Cek kemampuan awal"
+              eyebrow="Langkah 2 dari 2 · Cek kemampuan awal"
               title="Kenali kemampuan awal anak"
               description="Dua belas pertanyaan tentang apa yang Anda amati sehari-hari. Tidak ada jawaban benar atau salah, dan hasilnya bukan diagnosis."
             />

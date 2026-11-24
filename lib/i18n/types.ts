@@ -16,6 +16,16 @@ export type Messages = {
     ctaPrimary: string;
     ctaSecondary: string;
   };
+  hub: {
+    nav: string;
+    label: string;
+    title: string;
+    body: string;
+    cta: string;
+    secondary: string;
+    meta: string;
+    points: { title: string; body: string }[];
+  };
   work: {
     label: string;
     lead: string;

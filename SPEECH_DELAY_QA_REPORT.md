@@ -10,7 +10,8 @@ Environment: Node 26.13.0 (project declares `engines.node 22.x`; npm prints `EBA
 | Unit/content tests | **DONE** | `npm test` (Vitest 3.2.7) → 2 files, **34 tests passed**, exit 0. |
 | Production build | **DONE** | `npm run build` → exit 0, 57 routes prerendered (10 education SSG, 30 activity SSG). |
 | Production server smoke test | **DONE** | `next start -p 3100`; 17 checked URLs (see §3). |
-| Existing portfolio intact | **DONE** | `/` → 307 `/en`; `/en`, `/en/work/<slug>` → 200; footer now links to `/speech-delay`. |
+| Existing portfolio intact | **DONE** | `/` → 307 `/en`; `/en`, `/en/work/<slug>` → 200. |
+| Discoverable from the portfolio | **DONE (HTML-level)** | Home page has a dedicated `#ruang-wicara` feature card with two CTAs plus a hero button; the sticky header carries a "Ruang Wicara" pill on every portfolio page; the footer links it; the hub links back to the site. Verified in prerendered HTML, not visually inspected. |
 | Browser interaction testing (click-through) | **DONE for core flow** | Cloud browser: profile, 12-question baseline, activity and illustrated demo, session, milestone, goal, reflection, progress, report, JSON export and reset. See §3. |
 | Visual/mobile review | **PARTIAL** | Mobile viewport screenshot of report inspected; horizontal navigation scrolls as designed. Other pages and screen sizes were not visually reviewed. |
 | Audio/video capture on a real device | **NOT VERIFIED** | Headless runner has no audio device or screen reader. |
@@ -62,7 +63,7 @@ All checks returned the expected status:
 307 / -> /en                     (existing redirect preserved)
 ```
 
-Additional checks: `<title>Beranda — Ruang Wicara</title>` present in `/speech-delay` HTML; hashed CSS asset returns 200; `/en` HTML contains `href="/speech-delay"` (footer integration).
+Additional checks: `<title>Beranda — Ruang Wicara</title>` present in `/speech-delay` HTML; hashed CSS asset returns 200; `/en` HTML contains `id="ruang-wicara"`, three "Ruang Wicara" occurrences and the header pill link; `/speech-delay` HTML contains `lang="id"` on the hub container.
 
 ## 3a. Interactive browser verification
 
@@ -90,9 +91,9 @@ Using the local production server through the Cloud browser, a test profile was 
 
 ## 6. Known limitations (honest)
 
-1. **`<html lang="en">` on the Indonesian module (NOT VERIFIED / documented).** The portfolio root layout owns a static `lang="en"` because the site is English-only; moving the `<html>` shell would risk the existing pages. `LangSync` sets `document.documentElement.lang = "id"` on mount, so assistive technology sees the correct language after hydration, but the server HTML and any pre-hydration snapshot still say `en`. A permanent fix is to move the `<html>` element into `app/[locale]/layout.tsx`, which is a portfolio-wide refactor and was deliberately not done in this change.
+1. **`<html lang="en">` on the Indonesian module (mitigated, not fully fixed).** The portfolio root layout owns a static `lang="en"` because the site is English-only; moving the `<html>` shell would risk the existing pages. Two measures are in place: the hub renders everything inside `<div lang="id">` (so the server HTML already declares Indonesian for the module region, screen readers included), and `LangSync` sets `document.documentElement.lang = "id"` on mount and restores it on unmount. Still wrong before hydration is only the document-level element itself. A full fix means moving `<html>` into `app/[locale]/layout.tsx`, a portfolio-wide refactor that was deliberately not done.
 2. **`localStorage` instead of IndexedDB.** The MD prefers IndexedDB. `localStorage` was chosen because it is synchronous, trivially exportable and adequate for the data volume (text notes only), at the cost of a ~5 MB ceiling and no binary storage. `saveState` returns an explicit error string on quota failure, which the settings page displays. If recordings or images are ever added, this must move to IndexedDB.
-3. **Browser coverage is partial.** The core flow was exercised in a Cloud browser: profile, all 12 baseline answers, activity tabs and illustrated demo, session save, milestone save, goal and reflection save, progress, report, JSON export, and full reset. JSON import, monthly review, real audio playback, keyboard and screen-reader operation, and every one of the 30 activity flows were not individually exercised. They remain unverified in a browser.
+3. **Browser coverage is partial.** The entry points added in this pass (home feature card, header pill, hub back link, three-step start guide) were verified in the production HTML and server response, but not visually inspected in a browser at several widths. The core flow was exercised in a Cloud browser: profile, all 12 baseline answers, activity tabs and illustrated demo, session save, milestone save, goal and reflection save, progress, report, JSON export, and full reset. JSON import, monthly review, real audio playback, keyboard and screen-reader operation, and every one of the 30 activity flows were not individually exercised. They remain unverified in a browser.
 4. **Print/PDF output partially verified.** Browser print-media emulation hid the print button and displayed the report sheet with saved goal data. A PDF file and its pagination were not visually inspected; page breaks still depend on the browser.
 5. **Audio depends on the device.** Firefox/Chrome expose Indonesian voices inconsistently; the component detects absence and tells the user. Nothing here guarantees a specific pronunciation.
 6. **No server, no accounts, no sync.** Data does not follow the user across devices or browsers, and clearing site data deletes it. This is stated in the UI.
