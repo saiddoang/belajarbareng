@@ -35,16 +35,16 @@ export function HubShell({ children }: { children: ReactNode }) {
       </a>
 
       <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 sm:py-3">
           <Link href="/speech-delay" className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-semibold text-paper">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-semibold text-paper sm:h-9 sm:w-9">
               w
             </span>
             <span className="leading-tight">
               <span className="block text-sm font-semibold tracking-tight text-ink">
                 Ruang Wicara
               </span>
-              <span className="block text-[11px] text-muted">
+              <span className="hidden text-[11px] text-muted sm:block">
                 Stimulasi komunikasi di rumah
               </span>
             </span>
@@ -80,14 +80,14 @@ export function HubShell({ children }: { children: ReactNode }) {
 
         <nav
           aria-label="Navigasi modul (layar kecil)"
-          className="flex flex-wrap gap-1 border-t border-line px-4 py-2 text-sm md:hidden"
+          className="flex flex-wrap gap-1 border-t border-line px-3 py-1 text-sm md:hidden"
         >
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`shrink-0 rounded-full px-3 py-1.5 ${
+              className={`shrink-0 rounded-full px-2 py-1 ${
                 isActive(item.href)
                   ? "bg-accent/10 font-medium text-accent"
                   : "text-muted"
