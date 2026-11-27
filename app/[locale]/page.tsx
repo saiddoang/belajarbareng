@@ -18,52 +18,58 @@ export default async function HomePage({
 
   return (
     <>
-      <section className="mx-auto max-w-5xl px-6 pb-2 pt-2 sm:pb-24 sm:pt-24">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-            {messages.hero.status}
-          </p>
-          <h1 className="mt-3 max-w-4xl text-[clamp(2.1rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance sm:mt-8">
-            {messages.hero.headline}
-          </h1>
-          <p className="mt-2 max-w-xl text-base leading-snug text-pretty text-muted sm:mt-8 sm:text-lg sm:leading-relaxed">
-            {messages.hero.intro}
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-3 sm:mt-10">
-            <a
-              href="#work"
-              className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
-            >
-              {messages.hero.ctaPrimary}
-            </a>
-            <Link
-              href="/speech-delay"
-              className="rounded-full border border-accent/40 bg-accent/5 px-5 py-3 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10"
-            >
-              {messages.hub.nav} →
-            </Link>
-            {site.email ? (
-              <a
-                href={`mailto:${site.email}`}
-                className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
-              >
-                {messages.hero.ctaSecondary}
-              </a>
-            ) : null}
-            {site.cvUrl ? (
-              <a
-                href={site.cvUrl}
-                download
-                className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
-              >
-                CV (PDF)
-              </a>
-            ) : null}
-          </div>
-        </Reveal>
-      </section>
+      {/* On phones the order is headline -> actions -> Ruang Wicara card -> intro, so the
+          card and both of its buttons sit inside the first screen. Desktop keeps the
+          original headline -> intro -> actions -> card sequence via the sm: order rules. */}
+      <div className="flex flex-col">
+        <div className="order-1 mx-auto w-full max-w-5xl px-6 pt-2 sm:pt-24">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+              {messages.hero.status}
+            </p>
+            <h1 className="mt-3 max-w-4xl text-[clamp(2.1rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance sm:mt-8">
+              {messages.hero.headline}
+            </h1>
+          </Reveal>
+        </div>
 
-      <section id="ruang-wicara" className="border-t border-line">
+        <div className="order-2 mx-auto mt-4 w-full max-w-5xl px-6 pb-2 sm:order-3 sm:mt-10 sm:pb-24">
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#work"
+                className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
+              >
+                {messages.hero.ctaPrimary}
+              </a>
+              <Link
+                href="/speech-delay"
+                className="rounded-full border border-accent/40 bg-accent/5 px-5 py-3 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10"
+              >
+                {messages.hub.nav} →
+              </Link>
+              {site.email ? (
+                <a
+                  href={`mailto:${site.email}`}
+                  className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
+                >
+                  {messages.hero.ctaSecondary}
+                </a>
+              ) : null}
+              {site.cvUrl ? (
+                <a
+                  href={site.cvUrl}
+                  download
+                  className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-ink"
+                >
+                  CV (PDF)
+                </a>
+              ) : null}
+            </div>
+          </Reveal>
+        </div>
+
+        <section id="ruang-wicara" className="order-3 border-t border-line sm:order-4">
         <div className="mx-auto max-w-5xl px-6 py-2 sm:py-20">
           <Reveal>
             <div className="overflow-hidden rounded-3xl bg-accent px-6 py-3 text-paper sm:px-10 sm:py-10">
@@ -116,7 +122,16 @@ export default async function HomePage({
             </div>
           </Reveal>
         </div>
-      </section>
+        </section>
+
+        <div className="order-4 mx-auto mt-4 w-full max-w-5xl px-6 pb-2 sm:order-2 sm:mt-8 sm:pb-0">
+          <Reveal>
+            <p className="max-w-xl text-base leading-snug text-pretty text-muted sm:text-lg sm:leading-relaxed">
+              {messages.hero.intro}
+            </p>
+          </Reveal>
+        </div>
+      </div>
 
       <section id="work" className="border-t border-line">
         <div className="mx-auto max-w-5xl px-6 py-20">

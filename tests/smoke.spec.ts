@@ -218,7 +218,9 @@ test.describe("home -> Ruang Wicara", () => {
     await expectTouchTargets(page, "#ruang-wicara a, #ruang-wicara button");
   });
 
-  test("the Ruang Wicara card headline and explanation are on the first screen", async ({ page }) => {
+  test("the Ruang Wicara card, its explanation and both CTAs are on the first screen", async ({
+    page,
+  }) => {
     await open(page, "/en");
     await expect(page.locator("#ruang-wicara h2")).toBeVisible();
 
@@ -229,6 +231,14 @@ test.describe("home -> Ruang Wicara", () => {
       const explanation = [...section.querySelectorAll("p")].find(
         (p) => (p.textContent ?? "").trim().length > 60,
       )!.getBoundingClientRect();
+      const ctas = [...section.querySelectorAll("a")].map((a) => {
+        const rect = a.getBoundingClientRect();
+        return {
+          text: (a.textContent ?? "").trim(),
+          top: Math.round(rect.top),
+          bottom: Math.round(rect.bottom),
+        };
+      });
       return {
         viewport: window.innerHeight,
         scrollY: window.scrollY,
@@ -236,6 +246,7 @@ test.describe("home -> Ruang Wicara", () => {
         headingTop: Math.round(heading.top),
         explanationTop: Math.round(explanation.top),
         explanationBottom: Math.round(explanation.bottom),
+        ctas,
       };
     });
 
@@ -246,6 +257,16 @@ test.describe("home -> Ruang Wicara", () => {
     expect(card.explanationBottom, "explanation ends inside the first screen").toBeLessThanOrEqual(
       card.viewport,
     );
+    expect(card.ctas.map((cta) => cta.text)).toEqual([
+      "Open Ruang Wicara",
+      "See the education library",
+    ]);
+    for (const cta of card.ctas) {
+      expect(cta.top, `${cta.text} starts inside the viewport`).toBeGreaterThanOrEqual(0);
+      expect(cta.bottom, `${cta.text} ends inside the first screen`).toBeLessThanOrEqual(
+        card.viewport,
+      );
+    }
   });
 
   test("the card CTA opens the Ruang Wicara hub", async ({ page }) => {
