@@ -22,18 +22,18 @@ export default async function HomePage({
           card and both of its buttons sit inside the first screen. Desktop keeps the
           original headline -> intro -> actions -> card sequence via the sm: order rules. */}
       <div className="flex flex-col">
-        <div className="order-1 mx-auto w-full max-w-5xl px-6 pt-2 sm:pt-24">
+        <div className="order-1 mx-auto w-full max-w-5xl px-4 pt-1 sm:px-6 sm:pt-24">
           <Reveal>
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
               {messages.hero.status}
             </p>
-            <h1 className="mt-3 max-w-4xl text-[clamp(2.1rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance sm:mt-8">
+            <h1 className="mt-2 max-w-4xl text-[clamp(2.1rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance sm:mt-8">
               {messages.hero.headline}
             </h1>
           </Reveal>
         </div>
 
-        <div className="order-2 mx-auto mt-4 w-full max-w-5xl px-6 pb-2 sm:order-3 sm:mt-10 sm:pb-24">
+        <div className="order-2 mx-auto mt-3 w-full max-w-5xl px-4 pb-0 sm:order-3 sm:mt-10 sm:px-6 sm:pb-24">
           <Reveal>
             <div className="flex flex-wrap items-center gap-3">
               <a
@@ -70,21 +70,21 @@ export default async function HomePage({
         </div>
 
         <section id="ruang-wicara" className="order-3 border-t border-line sm:order-4">
-        <div className="mx-auto max-w-5xl px-6 py-2 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 py-0 sm:px-6 sm:py-20">
           <Reveal>
-            <div className="overflow-hidden rounded-3xl bg-accent px-6 py-3 text-paper sm:px-10 sm:py-10">
+            <div className="overflow-hidden rounded-3xl bg-accent px-4 pt-1 pb-1.5 text-paper sm:px-10 sm:py-10">
               <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
                     {messages.hub.label}
                   </p>
-                  <h2 className="mt-2 text-[clamp(1.45rem,3.4vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance sm:mt-4">
+                  <h2 className="mt-1.5 text-[clamp(1.25rem,3.4vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance sm:mt-4">
                     {messages.hub.title}
                   </h2>
-                  <p className="mt-2 max-w-xl text-sm leading-snug text-paper/80 sm:mt-4 sm:leading-relaxed">
+                  <p className="mt-1.5 max-w-xl text-sm leading-[1.28] text-paper/80 sm:mt-4 sm:leading-relaxed">
                     {messages.hub.body}
                   </p>
-                  <div className="mt-3 flex flex-wrap items-center gap-3 sm:mt-7">
+                  <div className="mt-2 flex flex-wrap items-center gap-1.5 sm:mt-7 sm:gap-3">
                     <Link
                       href="/speech-delay"
                       className="rounded-full bg-paper px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-white"
@@ -124,7 +124,7 @@ export default async function HomePage({
         </div>
         </section>
 
-        <div className="order-4 mx-auto mt-4 w-full max-w-5xl px-6 pb-2 sm:order-2 sm:mt-8 sm:pb-0">
+        <div className="order-4 mx-auto mt-4 w-full max-w-5xl px-4 pb-2 sm:order-2 sm:mt-8 sm:px-6 sm:pb-0">
           <Reveal>
             <p className="max-w-xl text-base leading-snug text-pretty text-muted sm:text-lg sm:leading-relaxed">
               {messages.hero.intro}

@@ -210,6 +210,56 @@ function contrastOf(page: Page, selector: string) {
   }, selector);
 }
 
+/** Geometry of the Ruang Wicara card measured at the top of the home page. */
+function measureFirstScreen(page: Page) {
+  return page.evaluate(() => {
+    const section = document.querySelector("#ruang-wicara");
+    if (!section) throw new Error("card missing");
+    const heading = section.querySelector("h2")!.getBoundingClientRect();
+    const explanation = [...section.querySelectorAll("p")].find(
+      (p) => (p.textContent ?? "").trim().length > 60,
+    )!.getBoundingClientRect();
+    const ctas = [...section.querySelectorAll("a")].map((a) => {
+      const rect = a.getBoundingClientRect();
+      return {
+        text: (a.textContent ?? "").trim(),
+        top: Math.round(rect.top),
+        bottom: Math.round(rect.bottom),
+      };
+    });
+    return {
+      viewport: window.innerHeight,
+      scrollY: window.scrollY,
+      overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      headingTop: Math.round(heading.top),
+      explanationTop: Math.round(explanation.top),
+      explanationBottom: Math.round(explanation.bottom),
+      ctas,
+    };
+  });
+}
+
+/** Asserts the whole card, its copy and both CTAs sit inside the first screen. */
+function expectFirstScreen(card: Awaited<ReturnType<typeof measureFirstScreen>>) {
+  expect(card.scrollY, "measured at the top of the page").toBe(0);
+  expect(card.overflowX, "no horizontal scrolling").toBe(0);
+  expect(card.headingTop, "headline starts inside the viewport").toBeGreaterThanOrEqual(0);
+  expect(card.explanationTop, "explanation starts inside the viewport").toBeLessThan(card.viewport);
+  expect(card.explanationBottom, "explanation ends inside the first screen").toBeLessThanOrEqual(
+    card.viewport,
+  );
+  expect(card.ctas.map((cta) => cta.text)).toEqual([
+    "Open Ruang Wicara",
+    "See the education library",
+  ]);
+  for (const cta of card.ctas) {
+    expect(cta.top, `${cta.text} starts inside the viewport`).toBeGreaterThanOrEqual(0);
+    expect(cta.bottom, `${cta.text} ends inside the first screen`).toBeLessThanOrEqual(
+      card.viewport,
+    );
+  }
+}
+
 test.describe("home -> Ruang Wicara", () => {
   test("home header and card controls have a 44x44 touch area", async ({ page }) => {
     await open(page, "/en");
@@ -223,51 +273,26 @@ test.describe("home -> Ruang Wicara", () => {
   }) => {
     await open(page, "/en");
     await expect(page.locator("#ruang-wicara h2")).toBeVisible();
-
-    const card = await page.evaluate(() => {
-      const section = document.querySelector("#ruang-wicara");
-      if (!section) throw new Error("card missing");
-      const heading = section.querySelector("h2")!.getBoundingClientRect();
-      const explanation = [...section.querySelectorAll("p")].find(
-        (p) => (p.textContent ?? "").trim().length > 60,
-      )!.getBoundingClientRect();
-      const ctas = [...section.querySelectorAll("a")].map((a) => {
-        const rect = a.getBoundingClientRect();
-        return {
-          text: (a.textContent ?? "").trim(),
-          top: Math.round(rect.top),
-          bottom: Math.round(rect.bottom),
-        };
-      });
-      return {
-        viewport: window.innerHeight,
-        scrollY: window.scrollY,
-        overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        headingTop: Math.round(heading.top),
-        explanationTop: Math.round(explanation.top),
-        explanationBottom: Math.round(explanation.bottom),
-        ctas,
-      };
-    });
-
-    expect(card.scrollY, "measured at the top of the page").toBe(0);
-    expect(card.overflowX, "no horizontal scrolling").toBe(0);
-    expect(card.headingTop, "headline starts inside the viewport").toBeGreaterThanOrEqual(0);
-    expect(card.explanationTop, "explanation starts inside the viewport").toBeLessThan(card.viewport);
-    expect(card.explanationBottom, "explanation ends inside the first screen").toBeLessThanOrEqual(
-      card.viewport,
-    );
-    expect(card.ctas.map((cta) => cta.text)).toEqual([
-      "Open Ruang Wicara",
-      "See the education library",
-    ]);
-    for (const cta of card.ctas) {
-      expect(cta.top, `${cta.text} starts inside the viewport`).toBeGreaterThanOrEqual(0);
-      expect(cta.bottom, `${cta.text} ends inside the first screen`).toBeLessThanOrEqual(
-        card.viewport,
-      );
-    }
+    expectFirstScreen(await measureFirstScreen(page));
   });
+
+  // Real phones show less than 844px of viewport once the browser chrome is
+  // counted, so the card must also fit these shorter first screens.
+  for (const viewport of [
+    { width: 390, height: 664 },
+    { width: 360, height: 640 },
+  ]) {
+    test(`the card and both CTAs fit a ${viewport.width}x${viewport.height} first screen`, async ({
+      page,
+    }) => {
+      await page.setViewportSize(viewport);
+      await open(page, "/en");
+      await expect(page.locator("#ruang-wicara h2")).toBeVisible();
+      const card = await measureFirstScreen(page);
+      expect(card.viewport, "measured at the requested viewport height").toBe(viewport.height);
+      expectFirstScreen(card);
+    });
+  }
 
   test("the card CTA opens the Ruang Wicara hub", async ({ page }) => {
     await open(page, "/en");
