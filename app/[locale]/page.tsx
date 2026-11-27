@@ -18,18 +18,18 @@ export default async function HomePage({
 
   return (
     <>
-      <section className="mx-auto max-w-5xl px-6 pb-24 pt-16 sm:pt-24">
+      <section className="mx-auto max-w-5xl px-6 pb-2 pt-2 sm:pb-24 sm:pt-24">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
             {messages.hero.status}
           </p>
-          <h1 className="mt-8 max-w-4xl text-[clamp(2.4rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance">
+          <h1 className="mt-3 max-w-4xl text-[clamp(2.1rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance sm:mt-8">
             {messages.hero.headline}
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-pretty text-muted">
+          <p className="mt-2 max-w-xl text-base leading-snug text-pretty text-muted sm:mt-8 sm:text-lg sm:leading-relaxed">
             {messages.hero.intro}
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-3 sm:mt-10">
             <a
               href="#work"
               className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
@@ -64,21 +64,21 @@ export default async function HomePage({
       </section>
 
       <section id="ruang-wicara" className="border-t border-line">
-        <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-6 py-2 sm:py-20">
           <Reveal>
-            <div className="overflow-hidden rounded-3xl bg-accent px-6 py-8 text-paper sm:px-10 sm:py-10">
+            <div className="overflow-hidden rounded-3xl bg-accent px-6 py-3 text-paper sm:px-10 sm:py-10">
               <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
                     {messages.hub.label}
                   </p>
-                  <h2 className="mt-4 text-[clamp(1.7rem,3.4vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance">
+                  <h2 className="mt-2 text-[clamp(1.45rem,3.4vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance sm:mt-4">
                     {messages.hub.title}
                   </h2>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-paper/80">
+                  <p className="mt-2 max-w-xl text-sm leading-snug text-paper/80 sm:mt-4 sm:leading-relaxed">
                     {messages.hub.body}
                   </p>
-                  <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <div className="mt-3 flex flex-wrap items-center gap-3 sm:mt-7">
                     <Link
                       href="/speech-delay"
                       className="rounded-full bg-paper px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-white"

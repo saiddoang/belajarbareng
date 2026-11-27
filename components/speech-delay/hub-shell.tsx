@@ -36,7 +36,7 @@ export function HubShell({ children }: { children: ReactNode }) {
 
       <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 sm:py-3">
-          <Link href="/speech-delay" className="flex items-center gap-3">
+          <Link href="/speech-delay" className="tap-target flex items-center gap-3">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-semibold text-paper sm:h-9 sm:w-9">
               w
             </span>
@@ -59,7 +59,7 @@ export function HubShell({ children }: { children: ReactNode }) {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
-                className={`rounded-full px-3 py-2 transition ${
+                className={`tap-target rounded-full px-3 py-2 transition ${
                   isActive(item.href)
                     ? "bg-accent/10 font-medium text-accent"
                     : "text-muted hover:text-ink"
@@ -72,7 +72,7 @@ export function HubShell({ children }: { children: ReactNode }) {
 
           <Link
             href="/speech-delay/settings"
-            className="rounded-full border border-line px-3 py-2 text-xs text-muted transition hover:border-accent hover:text-accent"
+            className="tap-target rounded-full border border-line px-3 py-2 text-xs text-muted transition hover:border-accent hover:text-accent"
           >
             Pengaturan
           </Link>
@@ -80,14 +80,14 @@ export function HubShell({ children }: { children: ReactNode }) {
 
         <nav
           aria-label="Navigasi modul (layar kecil)"
-          className="flex flex-wrap gap-1 border-t border-line px-3 py-1 text-sm md:hidden"
+          className="flex flex-wrap gap-x-1 gap-y-4 border-t border-line px-3 py-1 text-sm md:hidden"
         >
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`shrink-0 rounded-full px-2 py-1 ${
+              className={`tap-target shrink-0 rounded-full px-2 py-1 ${
                 isActive(item.href)
                   ? "bg-accent/10 font-medium text-accent"
                   : "text-muted"
