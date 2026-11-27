@@ -34,6 +34,25 @@ body {
   outline-offset: 3px;
 }
 
+/*
+ * Grows a small text link to a 44x44 CSS px touch target without moving or
+ * resizing the visible text: the extra area comes from a transparent overlay.
+ */
+@utility tap-target {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    transform: translate(-50%, -50%);
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;

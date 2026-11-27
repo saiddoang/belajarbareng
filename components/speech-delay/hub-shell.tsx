@@ -113,7 +113,7 @@ export function HubShell({ children }: { children: ReactNode }) {
             </p>
             <Link
               href="/"
-              className="mt-3 inline-block text-xs underline decoration-line underline-offset-4 hover:text-ink"
+              className="tap-target mt-3 inline-block text-xs underline decoration-line underline-offset-4 hover:text-ink"
             >
               ← Kembali ke situs utama
             </Link>
@@ -133,7 +133,7 @@ export function HubShell({ children }: { children: ReactNode }) {
             </p>
             <Link
               href="/speech-delay/resources"
-              className="mt-3 inline-block underline decoration-line underline-offset-4 hover:text-ink"
+              className="tap-target mt-3 inline-block underline decoration-line underline-offset-4 hover:text-ink"
             >
               Sumber & glosarium
             </Link>

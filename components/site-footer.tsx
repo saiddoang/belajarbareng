@@ -10,11 +10,11 @@ export function SiteFooter({ messages }: { messages: Messages }) {
           © {new Date().getFullYear()} {messages.meta.name}. {messages.footer.note}
         </p>
         <div className="flex flex-wrap gap-4">
-          <Link href="/speech-delay" className="hover:text-ink">
+          <Link href="/speech-delay" className="tap-target hover:text-ink">
             Ruang Wicara
           </Link>
           {site.email ? (
-            <a href={`mailto:${site.email}`} className="hover:text-ink">
+            <a href={`mailto:${site.email}`} className="tap-target hover:text-ink">
               Email
             </a>
           ) : null}
@@ -23,7 +23,7 @@ export function SiteFooter({ messages }: { messages: Messages }) {
               href={site.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="hover:text-ink"
+              className="tap-target hover:text-ink"
             >
               LinkedIn
             </a>
@@ -33,7 +33,7 @@ export function SiteFooter({ messages }: { messages: Messages }) {
               href={site.github}
               target="_blank"
               rel="noreferrer"
-              className="hover:text-ink"
+              className="tap-target hover:text-ink"
             >
               GitHub
             </a>

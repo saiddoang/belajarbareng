@@ -57,7 +57,7 @@ export default async function CaseStudyPage({
       <article className="mx-auto max-w-5xl px-6 pb-24 pt-12">
         <Link
           href={`/${locale}#work`}
-          className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-ink"
+          className="tap-target font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-ink"
         >
           ← {messages.caseStudy.back}
         </Link>
